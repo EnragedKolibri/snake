@@ -2,6 +2,7 @@ package com.snake.player;
 import com.snake.snake.Head;
 import com.snake.snake.MyRectImpl;
 import com.snake.snake.Tail;
+import com.snake.utils.ColorGenerator;
 import com.snake.utils.MyConstants;
 import com.sun.javafx.scene.traversal.Direction;
 import javafx.scene.Group;
@@ -24,8 +25,8 @@ public class Player implements Runnable {
     private Head head;
     private ArrayList<MyRectImpl> snakeArrayList;
     private boolean isAlive;
-    private Color headColor = generateRandColor();
-    private Color tailColor = generateRandColor();
+    private Color headColor = ColorGenerator.generateRandColor();
+    private Color tailColor = ColorGenerator.generateRandColor();
     private String nane;
     private int speed;
 
@@ -91,7 +92,7 @@ public class Player implements Runnable {
     public void run() {
 
         do {
-            System.out.println(nane+": "+"Head pos "+"X: "+snakeArrayList.get(0).getPosX()+"|Y: "+snakeArrayList.get(0).getPosX());
+            //System.out.println(nane+": "+"Head pos "+"X: "+snakeArrayList.get(0).getPosX()+"|Y: "+snakeArrayList.get(0).getPosX());
             for (int i = snakeArrayList.size()-1; i>0 ; i--)
             {
                 snakeArrayList.get(i).setPosX(snakeArrayList.get(i-1).getPosX());
@@ -116,16 +117,5 @@ public class Player implements Runnable {
             }
         }while (isAlive);
 
-    }
-
-    private Color generateRandColor()
-    {
-        Random random = new Random();
-        Color res = Color.color(random.nextDouble(),random.nextDouble(),random.nextDouble());
-        while (res == MyConstants.STAGE_COLOR) {
-            System.out.println("Generated color same as background. Generating new color.");
-            res = Color.color(random.nextDouble(),random.nextDouble(),random.nextDouble());
-        }
-        return res;
     }
 }
