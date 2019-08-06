@@ -1,5 +1,6 @@
 package com.snake;
 
+import com.snake.core.Core;
 import com.snake.food.Food;
 import com.snake.player.Player;
 import com.snake.utils.ColorGenerator;
@@ -22,7 +23,7 @@ public class Main extends Application {
     private int width = 500;
     private int height = 500;
     private HashMap<String,Player> players;
-    Food food;
+    private Core core;
 
     public static void main(String[] args) {
 
@@ -43,27 +44,11 @@ public class Main extends Application {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
         stage.show();
 
-        Thread thread = new Thread(players.get("Player1"));
-        thread.start();
-        spawnFood(root);
-    }
+        core = new Core(players);
+        Thread threadCore = new Thread(core);
+        threadCore.start();
+        root.getChildren().add(core.spawnFood(width,height));
 
-    private void spawnFood(Group root){
-        Random random = new Random();
-        int posX = random.nextInt(201);
-        int posY = random.nextInt(201);
-        food= new Food(posX,posY,10,10, Color.RED);
-        root.getChildren().add(food);
-        if (posX%10!=0&&posY%10!=0)
-        {
-            root.getChildren().remove(food);
-            spawnFood(root);
-        }
-        System.out.println("Food X: "+posX+"Y: "+posY);
-    }
-
-    private void checkCollision()
-    {
 
     }
 
