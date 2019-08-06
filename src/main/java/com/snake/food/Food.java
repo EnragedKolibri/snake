@@ -11,10 +11,4 @@ public class Food extends MyRectImpl {
     public Food(int x, int y, int width, int height, Color color) {
         super(x, y, width, height, color);
     }
-
-//    public Food spawnFood(ArrayList<Player> players)
-//    {
-//        Random random = new Random();
-//        return new Food(10,10,)
-//    }
 }
