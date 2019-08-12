@@ -22,7 +22,6 @@ public class Main extends Application {
 
     private int width = 500;
     private int height = 500;
-    private HashMap<String,Player> players;
     private Core core;
 
     public static void main(String[] args) {
@@ -31,11 +30,11 @@ public class Main extends Application {
     }
 
     public void start(Stage stage) throws Exception {
-        players = new HashMap<>();
-        players.put("Player1",new Player("Player1",100));
+        HashMap<String, Player> players = new HashMap<>();
+        core = new Core();
         Group root = new Group();
-        players.forEach( (s, player) -> player.getSnakeArrayList().forEach(e->root.getChildren().add(e)));
-        root.getChildren().add(players.get("Player1").getHead().getName());
+        core.getPlayers().forEach( (s, player) -> player.getSnakeArrayList().forEach(e->root.getChildren().add(e)));
+        root.getChildren().add(core.getPlayers().get("Player1").getHead().getName());
         Scene scene = new Scene(root, width, height, MyConstants.STAGE_COLOR);
         stage.setTitle("Vision");
         stage.setScene(scene);
@@ -44,7 +43,7 @@ public class Main extends Application {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, keyEventEventHandler);
         stage.show();
 
-        core = new Core(players);
+
         Thread threadCore = new Thread(core);
         threadCore.start();
         root.getChildren().add(core.spawnFood(width,height));
@@ -54,7 +53,7 @@ public class Main extends Application {
 
     private EventHandler<KeyEvent> keyEventEventHandler = e -> {
 
-            players.get("Player1").changeDirection(e);
+            core.getPlayers().get("Player1").changeDirection(e);
 
         System.out.println(e.getCode().toString());
     };

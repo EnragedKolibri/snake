@@ -27,6 +27,11 @@ public class Player implements Runnable {
     private boolean isAlive;
     private Color headColor = ColorGenerator.generateRandColor();
     private Color tailColor = ColorGenerator.generateRandColor();
+
+    public String getName() {
+        return nane;
+    }
+
     private String nane;
     private int speed;
 

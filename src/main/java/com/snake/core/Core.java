@@ -13,13 +13,18 @@ import java.util.Random;
 
 public class Core implements Runnable {
 
-    private HashMap<String, Player> playersList;
+    public HashMap<String, Player> getPlayers() {
+        return players;
+    }
+
+    private HashMap<String, Player> players;
     private HashMap<String, Thread> playersThreads;
 
-    public Core(HashMap<String, Player> playersList) {
-        this.playersList = playersList;
+    public Core() {
+        players = new HashMap<>();
+        players.put("Player1",new Player("Player1",100));
         playersThreads = new HashMap<>();
-        playersList.forEach((string, player)-> playersThreads.put(string,new Thread(player)));
+        players.forEach((string, player)-> playersThreads.put(string,new Thread(player)));
     }
 
     @Override
